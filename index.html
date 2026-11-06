@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Private group chat for invited members." />
+    <title>Zolobachat</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="grid-container">
+      <!-- Welcome Panel (Left Side - 2fr) -->
+      <div id="welcome-part">
+        <h1 id="welcome-to-zolobachat">Welcome To Zolobachat</h1>
+        <h2 id="apps-notice">
+          Sign in or create an account to try the chat. Messages are stored by
+          the chat service and are not end-to-end encrypted.
+        </h2>
+
+        <!-- Chat Frame Interface (Visible only when authenticated) -->
+        <div id="chat-frame-area" style="display: none; margin-top: 20px">
+          <div class="chat-wrapper">
+            <!-- Message Stream -->
+            <div id="chat-messages-box" role="log" aria-live="polite" aria-label="Chat messages" style="height: 300px; overflow-y: auto; padding: 10px; margin-bottom: 10px;"></div>
+
+            <!-- Input Box Control Actions -->
+            <form id="chat-send-form" style="display: flex; gap: 10px">
+              <input
+                type="text"
+                id="chat-input-text"
+                placeholder="Type a message..."
+                style="flex-grow: 1"
+                maxlength="2000"
+                aria-label="Message"
+                required
+              />
+              <button type="submit" id="btn-send-message">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auth Panel (Right Side - 1fr) -->
+      <div id="signin-part">
+        <!-- Auth View Container -->
+        <div id="auth-container">
+          <h2 id="Access-Vault">Access Vault</h2>
+          <form id="auth-form">
+            <div class="input-group" id="group-display-name" hidden>
+              <input
+                type="text"
+                id="auth-display-name"
+                placeholder="Choose a display name"
+                aria-label="Display name"
+                autocomplete="nickname"
+                maxlength="40"
+              />
+            </div>
+
+            <div class="input-group">
+              <input
+                type="email"
+                id="auth-email"
+                placeholder="Your Email Address"
+                aria-label="Email address"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="input-group">
+              <input
+                type="password"
+                id="auth-password"
+                placeholder="Password"
+                aria-label="Password"
+                required
+                minlength="6"
+                autocomplete="current-password"
+              />
+            </div>
+
+            <div class="auth-buttons">
+              <button type="submit" id="btn-auth-action">Enter Chat</button>
+            </div>
+
+            <p class="auth-mode-switch">
+              <span id="auth-mode-prompt">Need an account?</span>
+              <button type="button" id="auth-mode-toggle">Sign up</button>
+            </p>
+
+            <p id="auth-status" class="form-status" role="status" aria-live="polite">
+              Sign in or create an account to test the chat.
+            </p>
+          </form>
+        </div>
+
+        <!-- Dashboard / Chat View Container (Hidden by default) -->
+        <div id="dashboard-container" style="display: none">
+          <h3>Verified Access</h3>
+          <p class="user-badge">User: <span id="user-display-email"></span></p>
+          <button id="btn-logout" class="danger-btn">
+            Leave Chat and log Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load Supabase and Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

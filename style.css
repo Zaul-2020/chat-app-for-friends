@@ -1,0 +1,358 @@
+/* ==========================================================================
+   GLOBAL RESET & BASICS
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #021e55;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ==========================================================================
+   LAYOUT GRID CONTAINER (Preserves Original 1fr / 2fr Structure)
+   ========================================================================== */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* 1fr Sign-In Portal (Left) | 2fr Welcome & Chat Room (Right) */
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Responsive adjustment for phone displays and small mobile device screens */
+@media (max-width: 900px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+/* ==========================================================================
+   LEFT PANEL - SIGN IN / AUTH PORTAL (Matches Original Properties)
+   ========================================================================== */
+#signin-part {
+  background-color: #00b7ff;
+  color: black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#auth-container {
+  width: 100%;
+  max-width: 360px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 25px 10px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+#Access-Vault {
+  margin: 10px;
+  display: flex;
+  justify-self: center;
+  font-family: Inter, sans-serif;
+  text-decoration: underline;
+  font-size: 1.8rem;
+}
+
+.input-group {
+  padding: 20px;
+  width: 100%;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 21px;
+  border-radius: 10%;
+  border: none; /* Fixed: Swapped out broken 0cap layout value */
+  background: linear-gradient(
+    90deg,
+    rgb(0, 117, 121) 9%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.3);
+  color: white;
+  outline: none;
+  font-size: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.input-group input:focus {
+  transform: scale(1.02);
+  box-shadow: -10px 10px 25px rgba(0, 117, 121, 0.5);
+}
+
+/* Authentication Toggle Switching Link Layout */
+#auth-toggle-link {
+  transition: color 0.2s ease;
+}
+
+#auth-toggle-link:hover {
+  color: white !important;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   BUTTONS PORTAL CONTROLS (Merged with Original Gradients)
+   ========================================================================== */
+.auth-buttons {
+  width: 100%;
+  padding: 0 20px;
+  margin-top: 5px;
+}
+
+#btn-auth-action {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #021e55;
+  cursor: pointer;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  background: #22C1C3;
+  background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+  transition: transform 0.1s ease;
+}
+
+#btn-auth-action:active {
+  transform: scale(0.97);
+}
+
+#btn-auth-action:disabled,
+#btn-send-message:disabled,
+#btn-logout:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.form-status {
+  min-height: 1.5em;
+  margin: 16px 20px 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.auth-mode-switch {
+  margin: 18px 20px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth-mode-switch button {
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: #021e55;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#btn-auth-action:focus-visible,
+#btn-send-message:focus-visible,
+#btn-logout:focus-visible,
+.auth-mode-switch button:focus-visible {
+  outline: 3px solid #021e55;
+  outline-offset: 3px;
+}
+
+/* Active User Dashboard Panels */
+#dashboard-container {
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.user-badge {
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #021e55;
+}
+
+#btn-logout {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background: #3F5EFB;
+  background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+  transition: opacity 0.2s ease;
+}
+
+#btn-logout:hover {
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   RIGHT PANEL - WELCOME & VAULT LOG VIEW (Matches Original Properties)
+   ========================================================================== */
+#welcome-part {
+  background-color: #021e55;
+  color: white;
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#welcome-to-zolobachat {
+  margin: 10px;
+  display: flex;
+  justify-self: center;
+  font-family: Inter, sans-serif;
+  text-decoration: underline;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+#apps-notice {
+  color: #0996b9;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  max-width: 700px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   REAL-TIME SECURE VAULT CHAT INTERFACE WINDOWS
+   ========================================================================== */
+#chat-frame-area {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+
+.chat-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+}
+
+#chat-messages-box {
+  width: 100%;
+  background: #3F5EFB;
+  background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(65, 130, 251, 1) 27%, rgba(65, 135, 251, 1) 31%, rgba(70, 228, 252, 1) 81%);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border-radius: 12px;
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: white;
+}
+
+/* Individual Cryptographic Message Bubbles */
+.chat-bubble {
+  background-color: rgba(255, 255, 255, 0.18);
+  padding: 10px 14px;
+  border-radius: 14px;
+  border-bottom-left-radius: 2px;
+  max-width: 85%;
+  width: fit-content;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: bubblePopUp 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.chat-bubble strong {
+  color: #fdbb2d;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.chat-bubble span {
+  font-size: 15px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.chat-notice {
+  margin: 0;
+  padding: 10px;
+  opacity: 0.8;
+}
+
+/* Transmission Form panel actions */
+#chat-send-form input {
+  padding: 14px 18px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: #021e55 !important;
+  color: white !important;
+  font-size: 15px;
+  outline: none;
+}
+
+#chat-send-form input:focus {
+  border-color: #00b7ff !important;
+  box-shadow: 0 0 8px rgba(0, 183, 255, 0.5);
+}
+
+#btn-send-message {
+  padding: 0 24px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  background: #22C1C3 !important;
+  background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%) !important;
+  color: #021e55 !important;
+  font-weight: bold !important;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.1s ease;
+}
+
+#btn-send-message:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+#btn-send-message:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   ANIMATION TIMELINES
+   ========================================================================== */
+@keyframes bubblePopUp {
+  from {
+    opacity: 0;
+    transform: scale(0.93) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
