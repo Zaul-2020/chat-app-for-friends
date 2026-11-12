@@ -116,6 +116,20 @@ function appendMessageToScreen(msg) {
   text.textContent = msg.text;
   messageElement.append(username, text);
 
+  if (typeof msg.created_at === "string") {
+    const sentAt = new Date(msg.created_at);
+    if (Number.isFinite(sentAt.getTime())) {
+      const timestamp = document.createElement("time");
+      timestamp.className = "chat-timestamp";
+      timestamp.dateTime = sentAt.toISOString();
+      timestamp.textContent = new Intl.DateTimeFormat(undefined, {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }).format(sentAt);
+      messageElement.appendChild(timestamp);
+    }
+  }
+
   chatMessagesBox.appendChild(messageElement);
   chatMessagesBox.scrollTop = chatMessagesBox.scrollHeight;
 }
